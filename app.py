@@ -1,4 +1,5 @@
 import requests
+import json
 
 url = 'https://guilhermeonrails.github.io/api-restaurantes/restaurantes.json'
 response = requests.get(url)
@@ -10,11 +11,9 @@ if response.status_code == 200:
     #print(dados_json)
     for item in dados_json:
         nome_do_restaurante = item['Company']
-        nome_do_prato = item['Item']
-        preco = item['price']
-        descricao = item['description']
         if nome_do_restaurante not in dados_restaurante:
             dados_restaurante[nome_do_restaurante] = []
+        
         dados_restaurante[nome_do_restaurante].append({
             'item': item['Item'],
             'price': item['price'],
@@ -24,4 +23,8 @@ if response.status_code == 200:
 else:
     print(f'O erro foi {response.status_code}')
 
-print(dados_restaurante['Burger King'])
+for nome_do_restaurante, dados in  dados_restaurante.items():
+    nome_do_arquivo = f'{nome_do_restaurante}.json'
+    with open(nome_do_arquivo, 'w') as arquivo_restaurante:
+        json.dump(dados, arquivo_restaurante, indent=4)
+#print(dados_restaurante['KFC'])
