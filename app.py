@@ -20,8 +20,8 @@ if response.status_code == 200:
             'price': item['price'],
             'description': item['description']
         })
-    print(dados_restaurante['KFC'])
+    #print(dados_restaurante['KFC'])
 else:
     print(f'O erro foi {response.status_code}')
 
-#print(dados_restaurante['Burger King'])
+print(dados_restaurante['Burger King'])
